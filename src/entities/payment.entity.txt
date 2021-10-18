@@ -1,0 +1,40 @@
+import {
+  BaseEntity,
+  Entity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
+
+import { PaymentForm } from './payment-form.entity';
+
+@Entity()
+export class Payment extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ nullable: false, type: 'timestamp' })
+  timestamp: number;
+
+  @Column({ nullable: false, type: 'int' })
+  value: number;
+
+  @Column({ nullable: false, type: 'int' })
+  referenceMonth: number;
+
+  @Column({ nullable: false, type: 'int' })
+  patient: number; // Chaves estrangeira, receber a chave primaria de paciente
+
+  @JoinTable()
+  @ManyToMany(() => PaymentForm, (paymentForm) => paymentForm.payments)
+  paymentsForm: PaymentForm[]
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}

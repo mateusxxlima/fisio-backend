@@ -1,0 +1,32 @@
+import {
+  BaseEntity,
+  Entity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+} from 'typeorm';
+
+import { Payment } from './payment.entity';
+
+@Entity()
+export class PaymentForm extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ nullable: false, type: 'varchar', length: 100 })
+  name: string;
+
+  @Column({ nullable: false, type: 'text' })
+  description: string;
+
+  @ManyToMany(() => Payment, (payment) => payment.paymentsForm)
+  payments: Payment[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}

@@ -1,0 +1,32 @@
+import {
+  BaseEntity,
+  Entity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+@Entity()
+export class Scheduling extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ nullable: false, type: 'varchar', length: 100 })
+  name: string;
+
+  @Column({ nullable: false, type: 'int' })
+  value: number;
+
+  @Column({ nullable: false, type: 'date' })
+  dueDate: Date;
+
+  @Column({ nullable: false, type: 'boolean' })
+  isPaid: boolean;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
